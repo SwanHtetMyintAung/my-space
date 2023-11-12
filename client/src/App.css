@@ -1,0 +1,354 @@
+*{
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  font-family:monospace;
+}
+html  ,body , div#root{
+  height: 100%;
+}
+
+:root{
+  --base-background-color-- : rgb(28,28,28);
+  --navbar-height--: 10vh;
+  --note-navbar-height-- :7vh;
+  --primary-color-- : white;
+}
+body{
+  height: 100%;
+  background-color: #e0e0e0;
+}
+a{
+  color: #fff;
+}
+/*****************Navbar*********************/
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #6786e0;
+  height: var(--navbar-height--);
+}
+.nav-icon {
+  color:#ffffff;
+  margin: 20px;
+  flex-grow: 3;
+}
+.nav-list{
+  display: flex;
+  flex-grow: 2;
+  justify-content: space-around;
+  margin:20px;
+}
+/*******************Home********************************/
+div.home-container , .signup-form-container{
+  /*for gradient background color*/
+  background: linear-gradient(to bottom, #6786e0, #2ecc71);
+}
+div.home{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height:calc(100vh - (var(--navbar-height--)));
+  width:min(80vw , 900px);
+  margin:0 auto;
+  text-align: center;
+}
+div.text-container{
+  padding-top:5vh;
+  margin:5vh auto;
+  color:var(--primary-color--);
+}
+div.text-container > h2 {
+  text-align: center;
+  margin-bottom: 2vh;
+}
+.home-signup-button{
+  display: block;
+  background-color: inherit;
+  border-radius: 50%;
+  height: 10vh;
+  width: 10vh;
+  border: none;
+  box-shadow: 5px 5px white;
+  color:var(--primary-color--);
+  cursor: pointer;
+}
+.home-signup-button:hover{
+  animation: linear 1s forwards box-shadow-ani;
+}
+.home-signup-button> a{
+  color:#fff;
+}
+@keyframes box-shadow-ani{
+  0%{
+    box-shadow: 5px 5px white;
+  }
+  75%{
+    box-shadow: none;
+    
+  }
+  100%{
+    border: 1px solid white;
+    box-shadow: none;
+  }
+}
+
+/**********************Sign Up Form****************************/
+.signup-form-container{
+  /*to stop the height from going up over 100vh*/
+  height: calc(100vh - (var(--navbar-height--)));
+}
+.sign-up-form{
+  display: flex;
+  flex-direction: column;
+  width: min(80vw , 500px);
+  margin:0 auto;
+  padding-top:10vh;
+  align-items: center;
+}
+.sign-up-title{
+  color: var(--primary-color--);
+  text-align: center;
+  padding-top: 5vh;
+}
+.sign-up-form > div {
+  width: 100%;
+  
+}
+.sign-up-form > div > input {
+  width: 80%;
+  margin:3% 10%;
+  height: 5vh;
+  border: none;
+  border-radius: 4vw;
+  padding:0 2.6vw ;
+}
+.sign-up-form > div > input:focus{
+  outline: none;
+}
+.sign-up-form  div  label {
+  font-weight: bold;
+  color:var(--primary-color--);
+  margin-left: 10%;
+}
+.sign-up-form > button {
+  background:linear-gradient(to right , #e06767, #382ecc) ;
+  width:min(40%,250px);
+  height: 6vh;
+  margin-top: 4vh;
+  border: none;
+  border-radius: 4vw;
+  text-transform:uppercase;
+  color: var(--primary-color--);
+}
+/********************Note Navbar*****************************/
+
+.note-navbar{
+  background-color:#000;
+  height: var(--note-navbar-height--);
+}
+.note-navbar > ul {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.note-navbar > ul > li > a {
+  font-size: 3vh;
+}
+/********************Note*****************************/
+
+.note-container{
+  background-color: #000;
+  /* 83vh is hardcoded ,since calc is not working for the moment*/
+  min-height:calc(100vh - ( var(--navbar-height--) + var(--note-navbar-height--)));
+  color:#fff;
+  display: grid;
+  grid-template-columns: repeat( 2 ,  1fr);
+  grid-auto-rows:200px;
+  padding: 2vw;
+  gap:0.5vw;
+}
+div.note-item{
+  background-color: rgb(28,28,28);
+
+  overflow: hidden;
+  /**white-space:nowrap;*/
+  text-overflow: ellipsis;
+  
+  border-radius: 3vw;
+  padding: 3vh 3vw;
+
+}
+.note-text-container {
+  margin:  5% 0;
+  overflow: hidden;
+  line-clamp: 1;
+  /**white-space:nowrap;
+  text-overflow: ellipsis;*/
+  height: 74%;
+}
+.note-text-container > p{
+  text-overflow: hidden;
+}
+div.note-item > b {
+  display: block;
+  padding-bottom:3vh;
+}
+@media (min-width : 700px) {
+  .note-container{
+    grid-template-columns: repeat(4 , 1fr);
+  }
+}
+
+/*******************Task************/
+.task-wrapper{
+  position: relative;
+}
+.search-container{
+  width:100%;
+  height:10%;
+  padding-top: 3vh;
+}
+.task-container{
+  /*to make scroll-bar not to appear unnecessarily*/
+  min-height: calc(100vh - ( var(--navbar-height--) + var(--note-navbar-height--)));
+  background-color: #000;
+  position: relative;
+}
+.search-task{
+  width:80%;
+  height: 5vh;;
+  display: block;
+  margin:0 auto;
+  border-radius: 4vw;
+  padding-left: 4vw;
+  border: none;
+  background-color: var(--base-background-color--);
+  color: var(--primary-color--);
+}
+.search-task:focus{
+  border:none;
+  outline: none;
+}
+.no-tasks{
+  color: var(--primary-color--);
+  text-align: center;
+  margin-top:5%;
+  text-transform: capitalize;
+}
+.task-item{
+  width:90%;
+  height:minmax(10%, auto);
+
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+
+  background-color: var(--base-background-color--);
+  margin: 3vh auto;
+  color: var(--primary-color--);
+
+  border-radius: 2vw;
+  padding: 2% 0;
+}
+input[type="checkbox"] {
+  margin-left:3vw;
+  margin-right: 1vw;
+
+  width: 3vw;
+  height: 4vh;
+}
+label{
+  font-size: 1.5rem;
+  color: var(--primary-color--);
+  cursor: pointer;
+}
+.icon-container{
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  cursor: pointer;
+}
+.task-delete-button-container{
+  width: 3rem;
+  height: 3rem;
+  margin-right: 2rem;
+  margin-left: 1rem;
+}
+.task-delete-button > * {
+  color:white;
+  display: block;
+}
+.task-edit-button-container{
+  width: 2.3rem;
+  height: 2.4rem;
+  
+}
+.task-edit-button{
+  font-size: 2rem;
+}
+.checked{
+  text-decoration: line-through;
+  color:rgb(70,70,70);
+  accent-color: rgb(70,70,70) ;
+}  
+span.plus-sign{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0 2rem 2rem 0;
+
+  display: flex;
+  justify-content: center;
+ 
+
+  width:4rem;
+  height: 4rem;
+
+  font-size: 5rem;
+
+  background-color: #fff;
+  border-radius: 50%;
+  
+  cursor: pointer;
+
+}
+/*****************Modal**********************/
+#newTaskModal{
+  position: absolute;
+  top: 40%;
+  left:30%;
+  
+  width:50%;
+  height: 20%;
+
+  background-color: rgb(28,28,28);
+}
+div.firstPartInModal{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--primary-color--);
+}
+.modal-close-button-container {
+  width: 2rem;
+}
+div.secondPartInModal{
+  display: grid;
+  grid-template-columns:80% auto;
+}
+div.secondPartInModal > * {
+  border: none;
+  min-height:2rem;
+}
+input#newTaskInput:focus{
+  outline: none;
+}
+#newTaskBtn{
+  color:var(--base-background-color--);
+}
