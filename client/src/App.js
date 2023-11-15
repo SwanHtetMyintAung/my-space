@@ -5,6 +5,7 @@ import Home from './components/home';
 import SignUp from './components/signup';
 import Note from "./components/note";
 import Task from './components/task'
+import Profile from "./components/profile";
 
 import './App.css';
 
@@ -15,9 +16,11 @@ function App() {
         <Navbar></Navbar>
         <Routes>
           <Route index element={<Home/>}></Route>
-          <Route path='/SignUp' element={<SignUp/>}></Route>
+          <Route path='/signUp' element={<SignUp/>}></Route>
           <Route path='/note' element={<Note/>}></Route>
           <Route path='/task' element={<Task/>}></Route>
+          <Route path='/profile' element={<Profile/>}></Route>
+          
         </Routes>
       
     </BrowserRouter>
