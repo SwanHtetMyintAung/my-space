@@ -18,12 +18,17 @@ export default function SignUp(){
         //axios.post(apiUrl+"signUp" , JSON.stringify(data))
         fetch(apiUrl+'signUp',{
             method:"POST",
+            'credentials' :'include',
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                
             },
             body:JSON.stringify(data)
         })
-        .then(result => result.status === 200 && navigate('/'))
+        .then(result => {
+            result.status === 200 && navigate('/')
+            
+        })
         .catch(err=> console.log(err))
     }
     return(
