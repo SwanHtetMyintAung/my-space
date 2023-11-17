@@ -7,7 +7,7 @@ export default function Navbar(){
             <ul className="nav-list">
                 <li><a href="/music">Music</a></li>
                 <li><a href="/note">Note</a></li>
-                <li><a href="/websites">Websites</a></li>
+                <li><a href="/profile">Profile</a></li>
             </ul>
         </div>
     )

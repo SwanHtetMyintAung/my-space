@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route ,Navigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 import Navbar from './components/navbar';
 import Home from './components/home';
@@ -10,18 +11,43 @@ import Profile from "./components/profile";
 import './App.css';
 
 function App() {
+  function isLogin(elementToRender){
+    const user =  Cookies.get('user');
+    if(user === undefined){
+      return (
+        <Navigate to="/signup"/>
+      )
+    }else{
+      return elementToRender
+    }
+  }
   return (
     <BrowserRouter>
 
         <Navbar></Navbar>
         <Routes>
-          <Route index element={<Home/>}></Route>
-          <Route path='/signUp' element={<SignUp/>}></Route>
-          <Route path='/note' element={<Note/>}></Route>
-          <Route path='/task' element={<Task/>}></Route>
-          <Route path='/profile' element={<Profile/>}></Route>
-          
+          <Route 
+          index 
+          element={<Home/>}
+          />
+          <Route 
+          path='/signUp' 
+          element={<SignUp/>}
+          />
+          <Route 
+          path='/note' 
+          element={isLogin(<Note/>)}
+          />
+          <Route 
+          path='/task' 
+          element={isLogin(<Task/>)}
+          />
+          <Route 
+          path='/profile'
+          element={isLogin(<Profile/>)}
+          />
         </Routes>
+       
       
     </BrowserRouter>
   );

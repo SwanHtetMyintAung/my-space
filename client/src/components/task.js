@@ -18,25 +18,54 @@ function closeModal(){
 
 
 export default function Task(){
-    const [tasks , setTask] = useState(()=>{
-        return JSON.parse(localStorage.getItem("TASKS")) || []
-    });
+    const [tasks , setTasks] = useState([]);
     const [query , setQuery] = useState("");
 
-    useEffect(()=>{
-        localStorage.setItem("TASKS",JSON.stringify(tasks))
-    },[tasks]);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:3000/task', {
+              credentials: 'include',
+            });
+    
+            if (!response.ok) {
+              throw new Error('Failed to fetch data');
+            }
+    
+            const data = await response.json();
+            setTasks(data)
+          } catch (error) {
+            console.error('Error fetching data:', error.message);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
     let includedTasks = useMemo(()=>{
         return tasks.filter(task =>{
-            return task.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+            return task.text.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     })},[query , tasks])
 
     function addNewTask(e){
         const input = e.target.previousSibling;
+        const data = {
+            text : input.value
+        }
         if(input.value === "") return;
         let newTask = [input.value , ...tasks  ]
-        setTask(newTask)
+        
+
+        fetch('http://localhost:3000/task',{
+            method:"POST",
+            'credentials' :'include',
+            headers:{
+                "Content-Type":"application/json",    
+            },
+            body:JSON.stringify(data)
+        })
+        .then(result => console.log(result))
+        .catch(err => console.log)
 
         input.value="";
         closeModal();//close modal after adding a task
@@ -47,9 +76,11 @@ export default function Task(){
         setQuery(text);
        
     }
-    function deleteTask(text){
-        let newTask = tasks.filter(task=> task !== text)
-        setTask(newTask);
+    async function deleteTask(id){
+        const response = await fetch('http://localhost:3000/task/id',{
+            method:"DELETE",
+            credentials:'include',
+        })
     }
     function noTasks(){
         console.log(includedTasks) 
@@ -85,7 +116,7 @@ export default function Task(){
                     <p className="no-tasks">there isn't any tasks! </p>  :
                     includedTasks.map(task=>{  
                         return(
-                            <NewTask id={crypto.randomUUID()} key={tasks.indexOf(task)} clicked={checkedClicked} deleteTask={deleteTask} task={task}/>
+                            <NewTask id={task._id} key={tasks.indexOf(task)} clicked={checkedClicked} deleteTask={deleteTask} task={task.text}/>
                         )
                     })
                 }

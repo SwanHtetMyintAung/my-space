@@ -8,12 +8,12 @@ export default function NewTask(props){
             <label className="" htmlFor={props.id}  id={props.id}>{props.task}</label>
             <div className="icon-container">
                 <div className="task-edit-button-container">
-                    <span onClick={()=>props.deleteTask(props.task)} className="task-dit-button">
+                    <span onClick={()=>props.deleteTask(props.id)} className="task-dit-button">
                     <IconEdit/>
                     </span>
                 </div>
                 <div className="task-delete-button-container">
-                    <span onClick={()=>props.deleteTask(props.task)} className="task-delete-button">
+                    <span onClick={()=>props.deleteTask(props.id)} className="task-delete-button">
                     <IconX/>
                     </span>
                 </div>

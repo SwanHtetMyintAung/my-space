@@ -17,17 +17,17 @@ function signUp(req,res){
     })
     newUser.save()
     .then(result => {
-        const token = createToken(result._id , MAX_AGE);
+        const token = createToken(result._id , MAX_AGE * 24);
         res.cookie('user', result._id ,
         {
-            maxAge : MAX_AGE * 1000
+            maxAge : MAX_AGE *24
         }
         )
         res.cookie('JWT' , token , { 
             httpOnly : true ,
-            maxAge : MAX_AGE * 1000,
+            maxAge : MAX_AGE * 24,
         })
-        res.json({message : "Sign Up Successfully"})
+        res.json({message : MAX_AGE})
     })
     .catch(err => console.log(err));
 

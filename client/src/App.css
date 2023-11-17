@@ -352,3 +352,30 @@ input#newTaskInput:focus{
 #newTaskBtn{
   color:var(--base-background-color--);
 }
+/********************************** profile **********************************/
+
+.profile-container{
+  background-color: black;
+  min-height: calc(100vh - var(--navbar-height--));
+}
+.profile-first-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color--);
+
+}
+.profile-pic{
+  border-radius: 50%;
+  width: min(200px , 20%);
+  max-width: 150px;
+  margin:30px
+}
+.profile-pic > img{
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.profile-info > *{
+  font-size: 120%;
+}
