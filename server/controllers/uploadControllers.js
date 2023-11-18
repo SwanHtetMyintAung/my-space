@@ -27,7 +27,7 @@ async function uploadNewTask(req, res) {
   
         if (updateUser) {
           console.log('Task added to user successfully');
-          res.status(200).json({ message: 'Task added successfully' });
+          res.status(200).json(taskResult);
         } else {
           console.log('Failed to update user with task');
           res.status(500).json({ error: 'Internal Server Error' });

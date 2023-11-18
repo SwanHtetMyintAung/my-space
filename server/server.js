@@ -7,6 +7,16 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()//to process env file
 
+//models
+const USER = require('./models/User');
+const TASK = require('./models/Task');
+
+//controller
+
+const userController = require('./controllers/userControllers')
+const uploadControllers = require('./controllers/uploadControllers');
+const getControllers = require('./controllers/getController');
+const idControllers = require('./controllers/idControllers');
 
 //necessaries
 app.use(cookieParser());
@@ -22,14 +32,8 @@ app.options('*', (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.send();
   });
-//models
-const USER = require('./models/User');
 
-//controller
 
-const userController = require('./controllers/userControllers')
-const uploadControllers = require('./controllers/uploadControllers');
-const getControllers = require('./controllers/getController')
 
 // routes
 app.get('/',(req,res)=>{
@@ -37,11 +41,21 @@ app.get('/',(req,res)=>{
 })
 app.get('/task',getControllers)
 
+
+
 app.post('/signup',userController);
 app.post('/task',uploadControllers)
 
-app.get('/all-post',(req,res)=>{
+app.delete('/task/:id',idControllers)
+
+
+app.get('/all-user',(req,res)=>{
     USER.deleteMany({})
+    .then(result => res.send('succeed'))
+    .catch(err => console.log(err))
+})
+app.get('/all-post',(req,res)=>{
+    TASK.deleteMany({})
     .then(result => res.send('succeed'))
     .catch(err => console.log(err))
 })

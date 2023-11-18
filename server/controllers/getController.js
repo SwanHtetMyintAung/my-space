@@ -1,7 +1,7 @@
 const USER = require('../models/User')
 const TASK = require('../models/Task');
 const mongoose  = require('mongoose');
-const task = require('../models/Task');
+
 
 async function getTasks(req, res) {
     const userId = req.cookies.user;
@@ -23,7 +23,6 @@ async function getTasks(req, res) {
         const task = await TASK.findById(taskIds[i]);
         taskArray.push(task);
       }
-      console.log(taskArray)
       return res.status(200).json(taskArray);
   
     } catch (err) {

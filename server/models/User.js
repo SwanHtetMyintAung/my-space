@@ -22,8 +22,10 @@ const UserSchema = new Schema({
         required:true,
         min:8,
     },
-    tasks:[]
-
+    tasks:{
+        type:Array,
+        default:[]
+    }
 },{timestamps:true})
 
 UserSchema.pre('save',async function(next){

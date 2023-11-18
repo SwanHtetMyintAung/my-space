@@ -42,30 +42,44 @@ export default function Task(){
         fetchData();
       }, []);
 
-    let includedTasks = useMemo(()=>{
-        return tasks.filter(task =>{
-            return task.text.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-    })},[query , tasks])
-
-    function addNewTask(e){
+      let includedTasks = useMemo(() => {
+        if (tasks.length === 0) {
+          return [];
+        }
+      
+        return tasks.filter(task => {
+          return  task.text.toLowerCase().includes(query.toLowerCase());
+        });
+      }, [query, tasks]);
+      
+    async function addNewTask(e){
         const input = e.target.previousSibling;
+        if(input.value === "") return;
+
         const data = {
             text : input.value
         }
-        if(input.value === "") return;
-        let newTask = [input.value , ...tasks  ]
-        
+        try{
+            const response = await fetch('http://localhost:3000/task',{
+                method:"POST",
+                'credentials' :'include',
+                headers:{
+                    "Content-Type":"application/json",    
+                },
+                body:JSON.stringify(data)
+            })
+            if(response){
+                const result = await response.json();
+                console.log(result)
+                setTasks(prev => 
+                    [...prev , result]
+                )
+                
+            }
 
-        fetch('http://localhost:3000/task',{
-            method:"POST",
-            'credentials' :'include',
-            headers:{
-                "Content-Type":"application/json",    
-            },
-            body:JSON.stringify(data)
-        })
-        .then(result => console.log(result))
-        .catch(err => console.log)
+        }catch(error){
+            console.log(error.message)
+        }
 
         input.value="";
         closeModal();//close modal after adding a task
@@ -76,16 +90,25 @@ export default function Task(){
         setQuery(text);
        
     }
-    async function deleteTask(id){
-        const response = await fetch('http://localhost:3000/task/id',{
-            method:"DELETE",
-            credentials:'include',
-        })
-    }
-    function noTasks(){
-        console.log(includedTasks) 
-    }
-    
+    async function deleteTask(id) {
+        try {
+          const response = await fetch('http://localhost:3000/task/' + id, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (response.ok) {
+            // Update state by filtering out the deleted task
+            setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      console.log(tasks)
     return(
         <div className="task-wrapper">
             {/*********** Modal Box ***********/}
@@ -109,10 +132,9 @@ export default function Task(){
                 <div className="search-container">
                     <input  onChange={(e)=>searchTask(e)} type='txt'className="search-task" placeholder="Search for tasks"></input>
                 </div>
-                  {noTasks}
                 {/********************Display The Tasks********************************/
                     // eslint-disable-next-line eqeqeq
-                    includedTasks == "" ? 
+                    includedTasks.length === 0 ? 
                     <p className="no-tasks">there isn't any tasks! </p>  :
                     includedTasks.map(task=>{  
                         return(
@@ -121,9 +143,9 @@ export default function Task(){
                     })
                 }
             </div>
-            <span role="button" onClick={showModal}  /*onClick={showModal}*/ className="plus-sign">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            <span role="button" onClick={showModal} className="plus-sign">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="">
+                <path strokeLinecap="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
 
             </span>
