@@ -1,14 +1,18 @@
-import { BrowserRouter, Routes, Route ,Navigate } from "react-router-dom";
-import Cookies from 'js-cookie'
 
-import Navbar from './components/navbar';
-import Home from './components/home';
-import SignUp from './components/signup';
-import Note from "./components/note";
-import Task from './components/task'
-import Profile from "./components/profile";
+import { BrowserRouter, Routes, Route ,Navigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+
+
+import Navbar from './components/common/Navbar';
+import Home from './components/dashboard/Home';
+import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
+import Note from "./components/dashboard/Note";
+import Task from './components/dashboard/Task';
+import Profile from './components/dashboard/Profile';
 
 import './App.css';
+
 
 function App() {
   function isLogin(elementToRender){
@@ -31,8 +35,12 @@ function App() {
           element={<Home/>}
           />
           <Route 
-          path='/signUp' 
+          path='/signup' 
           element={<SignUp/>}
+          />
+          <Route 
+          path='/login' 
+          element={<Login/>}
           />
           <Route 
           path='/note' 

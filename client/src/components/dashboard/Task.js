@@ -1,9 +1,8 @@
-import NoteNavbar from "./noteNavbar"
-import NewTask from "./utilities/newTask";
+import NoteNavbar from "../common/NoteNavbar"
+import NewTask from "../utilities/newTask";
 import { useState , useMemo, useEffect } from "react";
-//import {v4 as uuidv4} from 'uuid';
-import IconX from "./utilities/iconX";
-import checkedClicked from "./utilities/checkClicked";
+import IconX from "../utilities/iconX";
+import checkedClicked from "../utilities/checkClicked";
 
 function showModal(){
     const modal = document.querySelector('#newTaskModal');

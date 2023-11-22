@@ -1,4 +1,4 @@
-import NoteNavbar from "./noteNavbar";
+import NoteNavbar from "../common/NoteNavbar";
 
 export default function note(){
     return(

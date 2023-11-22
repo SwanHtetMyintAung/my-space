@@ -13,7 +13,7 @@ const TASK = require('./models/Task');
 
 //controller
 
-const userController = require('./controllers/userControllers')
+const userControllers = require('./controllers/userControllers')
 const uploadControllers = require('./controllers/uploadControllers');
 const getControllers = require('./controllers/getController');
 const idControllers = require('./controllers/idControllers');
@@ -43,7 +43,8 @@ app.get('/task',getControllers)
 
 
 
-app.post('/signup',userController);
+app.post('/signup',userControllers.signUp);
+app.post('/login' , userControllers.login)
 app.post('/task',uploadControllers)
 
 app.delete('/task/:id',idControllers)

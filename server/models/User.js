@@ -40,15 +40,21 @@ UserSchema.pre('save',async function(next){
         return next(err);
     }
 })
-UserSchema.statics.findUser = async function(id){
-    const userId = id
-    if(!mongoose.Types.ObjectId.isValid(userId)) return;
+UserSchema.statics.login = async function(email , password){
     try{
-        const user = await this.findOne({userId});
-        if(!user) throw Error('User Not Found');
-        return user;
-    }catch{
-        throw Error('Not working')
+        const user = await this.findOne({email : email})
+        if(user){
+            const isValidPassword = await bcrypt.compare(password , user.password)
+            if(isValidPassword){
+                return user
+            }else{
+                throw Error('wrong Password')
+            }
+        }else{
+            throw Error("Can't find User")
+        }
+    }catch(error){
+        console.log(error)
     }
 }
 

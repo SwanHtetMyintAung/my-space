@@ -1,4 +1,4 @@
-const defaultProfile = require('../img/default-profile.jpg')
+const defaultProfile = require('../../img/default-profile.jpg')
 
 export default function Profile(props){
     return(
