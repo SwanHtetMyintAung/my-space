@@ -1,7 +1,15 @@
-import React from "react"
+import { useNavigate } from "react-router"
 
-export default function Home(){
-    
+export default function Home({cookies}){
+    const navigate = useNavigate();
+    function checkCookies(){
+        if(!cookies) {
+            navigate('/signup')
+        }else{
+            navigate('/profile')
+        }
+
+    }
     return(
         <div className="home-container">
             <div className="home">
@@ -12,7 +20,7 @@ export default function Home(){
                     </p>
                     
                 </div>
-                <button className="home-signup-button"><a href="/signup">Sing Up Now</a></button>
+                <button onClick={checkCookies} className="home-signup-button">Sing Up Now</button>
             </div>
         </div>
     )

@@ -42,7 +42,7 @@ a{
   margin:20px;
 }
 /*******************Home********************************/
-div.home-container , .signup-form-container{
+div.home-container , .sign-up-form-container , .login-form-container{
   /*for gradient background color*/
   background: linear-gradient(to bottom, #6786e0, #2ecc71);
 }
@@ -78,9 +78,7 @@ div.text-container > h2 {
 .home-signup-button:hover{
   animation: linear 1s forwards box-shadow-ani;
 }
-.home-signup-button> a{
-  color:#fff;
-}
+
 @keyframes box-shadow-ani{
   0%{
     box-shadow: 5px 5px white;
@@ -96,11 +94,11 @@ div.text-container > h2 {
 }
 
 /**********************Sign Up Form****************************/
-.signup-form-container{
+.sign-up-form-container , .login-form-container{
   /*to stop the height from going up over 100vh*/
   height: calc(100vh - (var(--navbar-height--)));
 }
-.sign-up-form{
+.sign-up-form , .login-form{
   display: flex;
   flex-direction: column;
   width: min(80vw , 500px);
@@ -108,16 +106,17 @@ div.text-container > h2 {
   padding-top:10vh;
   align-items: center;
 }
-.sign-up-title{
+.sign-up-title , .login-form-title{
   color: var(--primary-color--);
   text-align: center;
   padding-top: 5vh;
 }
-.sign-up-form > div {
+.sign-up-form > div ,
+.login-form > div{
   width: 100%;
-  
 }
-.sign-up-form > div > input {
+.sign-up-form > div > input ,
+.login-form > div > input {
   width: 80%;
   margin:3% 10%;
   height: 5vh;
@@ -125,15 +124,17 @@ div.text-container > h2 {
   border-radius: 4vw;
   padding:0 2.6vw ;
 }
-.sign-up-form > div > input:focus{
+.sign-up-form > div > input:focus ,
+.login-form > div > input:focus{
   outline: none;
 }
-.sign-up-form  div  label {
+.sign-up-form  div  label ,
+.login-form  div  label{
   font-weight: bold;
   color:var(--primary-color--);
   margin-left: 10%;
 }
-.sign-up-form > button {
+.sign-up-form > button , .login-form > button {
   background:linear-gradient(to right , #e06767, #382ecc) ;
   width:min(40%,250px);
   height: 6vh;
@@ -143,6 +144,17 @@ div.text-container > h2 {
   text-transform:uppercase;
   color: var(--primary-color--);
 }
+
+.sign-up-form-container > a ,
+.login-form-container > a{
+  display: block;
+  text-align: center;
+  margin-top: 3vh;
+  text-decoration: underline;
+}
+
+/************************Login Form**************************************/
+
 /********************Note Navbar*****************************/
 
 .note-navbar{

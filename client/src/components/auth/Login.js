@@ -13,7 +13,12 @@ export default function Login(){
         }
 
         postUser(url , data)
-        .then(result => result && navigate('/profile'))
+        .then(result => {
+            if(result){
+                navigate('/profile')
+            }
+            //result && navigate('/profile')
+        })
         .catch(err => console.log(err))
     }
     return(
@@ -22,14 +27,15 @@ export default function Login(){
             <form method="POST" action="http://localhost:3000/login" className="login-form">
                 <div>
                 <label htmlFor="#email">Email:</label>
-                <input name="email" id="email" maxLength={40} type="email"></input>
+                <input autoComplete="none" name="email" id="email" maxLength={40} type="email"></input>
                 </div>
                 <div>
-                <label htmlFor="#password">password:</label>
+                <label autoComplete="none" htmlFor="#password">password:</label>
                 <input name="password" id="password" maxLength={40} type="password"></input>
                 </div>
                 <button onClick={(e)=>LoginHandled(e)}>Login</button>
             </form>
+            <a href="/signup">Don't Have An account? Signup Here!</a>
         </div>
     )
 }

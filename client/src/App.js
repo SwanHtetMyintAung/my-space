@@ -17,7 +17,7 @@ import './App.css';
 function App() {
   function isLogin(elementToRender){
     const user =  Cookies.get('user');
-    if(user === undefined){
+    if(!user){
       return (
         <Navigate to="/signup"/>
       )
@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route 
           index 
-          element={<Home/>}
+          element={<Home cookies={Cookies.get('user')}/>}
           />
           <Route 
           path='/signup' 
