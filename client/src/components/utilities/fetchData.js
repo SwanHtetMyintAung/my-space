@@ -1,6 +1,8 @@
 async function fetchData(url){
     try{
-        const response = await fetch(url);
+        const response = await fetch(url,{
+            credentials:"include"
+        });
         if(response.ok){
             const result = await response.json();
             return result;
@@ -12,3 +14,4 @@ async function fetchData(url){
         console.log(error)
     }
 }
+module.exports = fetchData

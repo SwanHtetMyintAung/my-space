@@ -38,6 +38,30 @@ async function deleteOneTask(req, res) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+async function checkTask(req,res){
+  const taskId = req.params.id;
+  
+  try{
+    const Task = await TASK.findOne({ _id:taskId })
+    if(!Task){
+      res.status(400).json({message : "No Task Was Found"})
+    }else{
+      Task.checked = !Task.checked
+      const result = await Task.save()
+      console.log(result)
+      if(!result){
+        res.status(500).json({message : "Internal Server Error!"})
+      }
+      res.status(200).json({message : "Mission Succeed"})
+
+    }
+  }catch(error){
+    res.json({message : error})
+  }
+}
   
 
-module.exports = deleteOneTask;
+module.exports = {
+  deleteOneTask , checkTask
+}

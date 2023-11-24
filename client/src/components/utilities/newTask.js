@@ -1,11 +1,16 @@
 import IconX from "./iconX"
 import IconEdit from "./iconEdit"
 
+
 export default function NewTask(props){
+    // function returnClickedOrNot(){
+    //     console.log('checked')
+    //     return props.checked ? "checked" : ""
+    // }
     return(
         <div className="task-item">
-            <input id={props.id} type="checkbox" onClick={props.clicked} ></input>
-            <label className="" htmlFor={props.id}  id={props.id}>{props.task}</label>
+            <input defaultChecked={props.checked} id={props.id} type="checkbox" className={props.className} onClick={props.clicked} ></input>
+            <label className={props.className} htmlFor={props.id}  id={props.id}>{props.task}</label>
             <div className="icon-container">
                 <div className="task-edit-button-container">
                     <span onClick={()=>props.deleteTask(props.id)} className="task-dit-button">

@@ -2,7 +2,8 @@ import NoteNavbar from "../common/NoteNavbar"
 import NewTask from "../utilities/newTask";
 import { useState , useMemo, useEffect } from "react";
 import IconX from "../utilities/iconX";
-import checkedClicked from "../utilities/checkClicked";
+import { checkedClicked , updateCheck} from "../utilities/checkClicked";
+import postData from "../utilities/postData";
 
 function showModal(){
     const modal = document.querySelector('#newTaskModal');
@@ -59,23 +60,13 @@ export default function Task(){
             text : input.value
         }
         try{
-            const response = await fetch('http://localhost:3000/task',{
-                method:"POST",
-                'credentials' :'include',
-                headers:{
-                    "Content-Type":"application/json",    
-                },
-                body:JSON.stringify(data)
-            })
+          //the function will return the data already .json()
+            const response = await postData("http://localhost:3000/task", data , true)
             if(response){
-                const result = await response.json();
-                console.log(result)
                 setTasks(prev => 
-                    [...prev , result]
-                )
-                
+                    [ response , ...prev ]
+                )       
             }
-
         }catch(error){
             console.log(error.message)
         }
@@ -85,7 +76,8 @@ export default function Task(){
     }
     function searchTask(e){
         const text = e.target.value;
-       // if(text === "") return;
+        //if we check empty condition and clear the query , there would be a bug
+        //if(text === "") return;
         setQuery(text);
        
     }
@@ -107,7 +99,11 @@ export default function Task(){
           console.log(err);
         }
       }
-      console.log(tasks)
+      function finalCheckClick(event,url,id){
+        updateCheck(url,id);
+        checkedClicked(event)
+      }
+    
     return(
         <div className="task-wrapper">
             {/*********** Modal Box ***********/}
@@ -137,7 +133,15 @@ export default function Task(){
                     <p className="no-tasks">there isn't any tasks! </p>  :
                     includedTasks.map(task=>{  
                         return(
-                            <NewTask id={task._id} key={tasks.indexOf(task)} clicked={checkedClicked} deleteTask={deleteTask} task={task.text}/>
+                            <NewTask
+                            checked={task.checked || false}
+                            className={task.checked ? "checked" : ""} 
+                            id={task._id} 
+                            key={tasks.indexOf(task)} 
+                            clicked={(event)=> finalCheckClick(event , "http://localhost:3000/task" , task._id)} 
+                            deleteTask={deleteTask} 
+                            task={task.text}
+                            />
                         )
                     })
                 }

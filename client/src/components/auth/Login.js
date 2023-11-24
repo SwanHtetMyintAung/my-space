@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import postUser from "../utilities/postUser";
+import postData from "../utilities/postData";
 
 export default function Login(){
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Login(){
             password : event.target.form.password.value
         }
 
-        postUser(url , data)
+        postData(url , data)
         .then(result => {
             if(result){
                 navigate('/profile')

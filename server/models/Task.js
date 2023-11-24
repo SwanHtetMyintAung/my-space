@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
-    text : String
+    text : String,
+    checked:Boolean
 },{timestamps:true})
 
 const task = mongoose.model('task',TaskSchema)

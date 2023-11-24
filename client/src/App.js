@@ -52,7 +52,7 @@ function App() {
           />
           <Route 
           path='/profile'
-          element={isLogin(<Profile/>)}
+          element={isLogin(<Profile url="http://localhost:3000/profile"/>)}
           />
         </Routes>
        

@@ -1,6 +1,6 @@
 
 
-async function postUser(url , data){
+async function postData(url , data , needResult = false){
     try{
         const response = await fetch(url , {
             method:"POST",
@@ -12,8 +12,8 @@ async function postUser(url , data){
         })
         
         if(response.ok){
-            //const result = await response.json();
-            return true;
+            const result = await response.json();
+            return needResult ? result : true
         }else{
             return false
         }
@@ -23,4 +23,4 @@ async function postUser(url , data){
     }
 }
 
-module.exports = postUser;
+module.exports = postData;

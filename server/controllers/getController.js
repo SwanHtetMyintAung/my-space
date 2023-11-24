@@ -30,6 +30,27 @@ async function getTasks(req, res) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+async function getProfile(req,res){
+    const userId = req.cookies.user;
+    try {
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "You haven't logged in yet" });
+      }
   
+      const user = await USER.findOne({ _id: userId });
   
-module.exports = getTasks
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user)
+
+  
+    } catch (err) {
+      console.error('Error in getTasks:', err.message);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
+module.exports = {
+  getTasks , getProfile
+}

@@ -39,15 +39,16 @@ app.options('*', (req, res) => {
 app.get('/',(req,res)=>{
     res.send('hello there');
 })
-app.get('/task',getControllers)
-
+app.get('/task',getControllers.getTasks)
+app.get('/profile',getControllers.getProfile)
 
 
 app.post('/signup',userControllers.signUp);
 app.post('/login' , userControllers.login)
 app.post('/task',uploadControllers)
+app.post('/task/:id',idControllers.checkTask)
 
-app.delete('/task/:id',idControllers)
+app.delete('/task/:id',idControllers.deleteOneTask)
 
 
 app.get('/all-user',(req,res)=>{
