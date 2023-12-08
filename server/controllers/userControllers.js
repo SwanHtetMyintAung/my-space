@@ -46,6 +46,30 @@ async function login(req,res){
         throw Error(error);
     }
 }
+
+function logout(req,res){
+    
+    try{
+        const result = deleteCookies(res);
+        if(result){
+            res.status(200).json({message : "log ou successfully!"})
+        }else{
+            res.status(400).json({message : "Bad Request"})
+        }
+    }catch(error){
+        res.status(500).json({message : "Internal Server"})
+    }
+}
+
+function deleteCookies(res){
+    res.cookie('user',"");
+    res.cookie("JWT","");
+    if(!res.cookie){
+        return true
+    }else{
+        return false
+    }
+}
 module.exports = {
-    signUp , login
+    signUp , login , logout
 }

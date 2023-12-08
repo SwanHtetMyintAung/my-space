@@ -42,7 +42,7 @@ async function getProfile(req,res){
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.json(user)
+      res.status(200).json(user)
 
   
     } catch (err) {

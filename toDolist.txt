@@ -1,0 +1,6 @@
+##This file will include the things that is on my mind and will be done soon.
+
+1.make comment for codes.
+2.add a decent ui for logout button (right now we only have function)
+3.replace the hard-coded url from front-end with .env ones(google it if you don't know)
+4.check userControllers->logout , and complete it.
