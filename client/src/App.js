@@ -17,12 +17,12 @@ import './App.css';
 function App() {
   function isLogin(elementToRender){
     const user =  Cookies.get('user');
-    if(!user){
+    if(user && user !== ""){
+      return elementToRender
+    }else{
       return (
         <Navigate to="/signup"/>
       )
-    }else{
-      return elementToRender
     }
   }
   return (

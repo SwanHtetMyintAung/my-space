@@ -1,7 +1,10 @@
 import { useEffect , useRef } from "react";
+import { useNavigate } from "react-router";
+import logout from "../utilities/logout";
 
 export default function Navbar(){
-    const menuRef = useRef()
+    const menuRef = useRef();
+    const navigate = useNavigate();
     useEffect(() => {
         const handleOutsideClick = (event) => {
             const icon = document.getElementById('menu-toggler').firstChild
@@ -26,7 +29,16 @@ export default function Navbar(){
         }else if(!toggleElement.classList.contains('d-none')){
             toggleElement.classList.add('d-none')
         }
-        
+    }
+    async function handledLogout(){
+        try{
+            const result = await logout();
+            if(result === "/login"){
+                navigate(result)
+            }
+        }catch(error){
+            console.log(error)
+        }
     }
     return(
         <>
@@ -47,11 +59,15 @@ export default function Navbar(){
             </span>
         </div>
         <ul ref={menuRef} id="toggle-menu" className="nav-toggle-list d-none">
-                <li><a href="/music">Music</a></li>
-                <hr/>
                 <li><a href="/note">Note</a></li>
                 <hr/>
+                <li><a href="/task">Task</a></li>
+                <hr/>
                 <li><a href="/profile">Profile</a></li>
+                <hr/>
+                
+               {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <li><a href="#" onClick={handledLogout}>Logout</a></li>
             </ul>
         </>
     )

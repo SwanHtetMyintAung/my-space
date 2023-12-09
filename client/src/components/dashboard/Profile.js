@@ -1,8 +1,10 @@
 import {useEffect , useState} from 'react'
+import {useNavigate} from "react-router-dom"
 import fetchData from '../utilities/fetchData'
 const defaultProfile = require('../../img/default-profile.jpg')
 
 export default function Profile(props){
+    //const navigate = useNavigate();
     const [data , setData] = useState({})
 
     useEffect(() => {
@@ -18,23 +20,7 @@ export default function Profile(props){
     
         fetchDataAsync();
       }, [props.url]);
-    async function logout(){
-      try{
-          const response = await fetch("http://localhost:3000/logout",{
-              credentials:"include",
-              method:"DELETE"
-          });
-          if(response.ok){
-              const result = await response.json();
-              console.log(result)
-          }else{
-              console.log('account deletion failed')
-          }
-
-      }catch(error){
-          console.log(error)
-      }
-    }
+    
     
     return(
         <div className="profile-container">
@@ -49,7 +35,6 @@ export default function Profile(props){
                 </div>
             </div>
             <hr/>
-            <button onClick={logout}>Click To Logout</button>
             <div className="profile-second-part">
 
             </div>
