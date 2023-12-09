@@ -51,8 +51,9 @@ function logout(req,res){
     
     try{
         const result = deleteCookies(res);
+        console.log(res.cookies)
         if(result){
-            res.status(200).json({message : "log ou successfully!"})
+            res.status(200).json({message : "log out successfully!"})
         }else{
             res.status(400).json({message : "Bad Request"})
         }
@@ -62,13 +63,14 @@ function logout(req,res){
 }
 
 function deleteCookies(res){
-    res.cookie('user',"");
-    res.cookie("JWT","");
-    if(!res.cookie){
-        return true
-    }else{
-        return false
+    try{
+        res.cookie('user',"",{maxAge:1});
+        res.cookie("JWT","",{maxAge:1});
+        return true;
+    }catch(error){
+        return false;
     }
+    
 }
 module.exports = {
     signUp , login , logout

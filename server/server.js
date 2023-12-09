@@ -49,7 +49,7 @@ app.post('/task',uploadControllers)
 app.post('/task/:id',idControllers.checkTask)
 
 app.delete('/task/:id',idControllers.deleteOneTask)
-app.delete('logout',userControllers.logout)
+app.delete('/logout',userControllers.logout)
 
 app.get('/all-user',(req,res)=>{
     USER.deleteMany({})

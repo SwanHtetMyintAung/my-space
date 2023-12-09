@@ -15,6 +15,8 @@ import './App.css';
 
 
 function App() {
+  //check there's "user" cookie or not
+  //basically authorize function
   function isLogin(elementToRender){
     const user =  Cookies.get('user');
     if(user && user !== ""){
