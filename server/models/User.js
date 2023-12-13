@@ -25,6 +25,10 @@ const UserSchema = new Schema({
     tasks:{
         type:Array,
         default:[]
+    },
+    notes:{
+        type:Array,
+        default:[]
     }
 },{timestamps:true})
 

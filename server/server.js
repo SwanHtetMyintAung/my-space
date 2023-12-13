@@ -41,12 +41,13 @@ app.get('/',(req,res)=>{
 })
 app.get('/task',getControllers.getTasks)
 app.get('/profile',getControllers.getProfile)
-
+app.get('/note',getControllers.getNotes)
 
 app.post('/signup',userControllers.signUp);
 app.post('/login' , userControllers.login)
-app.post('/task',uploadControllers)
+app.post('/task',uploadControllers.uploadNewTask)
 app.post('/task/:id',idControllers.checkTask)
+app.post('/note',uploadControllers.uploadNewNote)
 
 app.delete('/task/:id',idControllers.deleteOneTask)
 app.delete('/logout',userControllers.logout)
