@@ -43,6 +43,11 @@ UserSchema.pre('save',async function(next){
     }catch(err){
         return next(err);
     }
+    //to get rid of the null when deleting a whole
+    this.notes = this.notes.filter(note => note)
+    this.tasks = this.tasks.filter(task => task)
+
+
 })
 UserSchema.statics.login = async function(email , password){
     try{

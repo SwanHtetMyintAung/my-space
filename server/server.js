@@ -10,6 +10,7 @@ require('dotenv').config()//to process env file
 //models
 const USER = require('./models/User');
 const TASK = require('./models/Task');
+const NOTE = require('./models/Note');
 
 //controller
 
@@ -52,16 +53,7 @@ app.post('/note',uploadControllers.uploadNewNote)
 app.delete('/task/:id',idControllers.deleteOneTask)
 app.delete('/logout',userControllers.logout)
 
-app.get('/all-user',(req,res)=>{
-    USER.deleteMany({})
-    .then(result => res.send('succeed'))
-    .catch(err => console.log(err))
-})
-app.get('/all-post',(req,res)=>{
-    TASK.deleteMany({})
-    .then(result => res.send('succeed'))
-    .catch(err => console.log(err))
-})
+
 mongoose.connect(process.env.MONGO_DB_URI)
 .then(result => app.listen(process.env.port || 3000 , ()=> console.log("connected to db...")))
 .catch(err => console.log(err))

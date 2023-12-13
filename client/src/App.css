@@ -361,7 +361,7 @@ label{
   color:rgb(70,70,70);
   accent-color: rgb(70,70,70) ;
 }  
-span.plus-sign{
+.plus-sign{
   position: fixed;
   right: 0;
   bottom: 0;
