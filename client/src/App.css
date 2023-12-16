@@ -383,13 +383,13 @@ label{
 
 }
 /*****************Modal**********************/
-#newTaskModal{
+#newModal{
   position: absolute;
-  top: 40%;
+  top: min(40%,100px);
   left:30%;
   
   width:50%;
-  height: 20%;
+  min-height: 20%;
 
   background-color: rgb(28,28,28);
 }
@@ -405,17 +405,21 @@ div.firstPartInModal{
 }
 div.secondPartInModal{
   display: grid;
-  grid-template-columns:80% auto;
+  grid-template-columns:88% auto;
 }
 div.secondPartInModal > * {
   border: none;
   min-height:2rem;
 }
-input#newTaskInput:focus{
+input#newModalInput , textarea#newModalInput{
+  resize: none;
+}
+input#newModalInput:focus , textarea#newModalInput:focus{
   outline: none;
 }
-#newTaskBtn{
+#newModalBtn{
   color:var(--base-background-color--);
+  
 }
 /********************************** profile **********************************/
 

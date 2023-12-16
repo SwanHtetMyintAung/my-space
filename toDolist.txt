@@ -2,5 +2,4 @@
 
 -make comment for codes.
 -replace the hard-coded url from front-end with .env ones(google it if you don't know)
--try to add a function for editing tasks , we only have delete task for now
-- we need to make the "note"  function like the task
+- we need to make the "note"  function like the task , have added the plus button . need to make another page to write note.

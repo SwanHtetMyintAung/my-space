@@ -1,17 +1,18 @@
 import NoteNavbar from "../common/NoteNavbar"
 import NewTask from "../utilities/newTask";
 import { useState , useMemo, useEffect } from "react";
-import IconX from "../utilities/iconX";
+
 import { checkedClicked , updateCheck} from "../utilities/checkClicked";
 import postData from "../utilities/postData";
+import Modal from "../common/Modal"
 
-function showModal(){
-    const modal = document.querySelector('#newTaskModal');
+function showModal(elementId){
+    const modal = document.getElementById(elementId);
     modal.showModal();
 }
-function closeModal(){
-    const modal = document.querySelector('#newTaskModal');
-    modal.close()
+function closeModal(eventTarget){
+  const modal = eventTarget;
+  modal.close();
 }
 
 
@@ -64,7 +65,7 @@ export default function Task(){
             const response = await postData("http://localhost:3000/task", data , true)
             if(response){
                 setTasks(prev => 
-                    [ response , ...prev ]
+                    [  ...prev, response ]
                 )       
             }
         }catch(error){
@@ -72,7 +73,7 @@ export default function Task(){
         }
 
         input.value="";
-        closeModal();//close modal after adding a task
+        closeModal(e.target.parentElement.parentElement);//close modal after adding a task
     }
     function searchTask(e){
         const text = e.target.value;
@@ -107,20 +108,7 @@ export default function Task(){
     return(
         <div className="task-wrapper">
             {/*********** Modal Box ***********/}
-            <dialog id="newTaskModal">
-            
-                <div className="firstPartInModal">
-                    <h3>Add A Task</h3>
-                    <span className="modal-close-button-container" onClick={closeModal}>
-                    <IconX/>
-                    </span>
-                </div>
-                <div className="secondPartInModal">
-                    <input id="newTaskInput" type="text"/>
-                    <button id="newTaskBtn" onClick={(e)=>addNewTask(e)}>Done</button>
-                </div>
-                
-            </dialog>
+            <Modal h="" addNewTask={addNewTask} closeModal={closeModal}/>
             <NoteNavbar/>
             <div className="task-container">
                 {/**************Search Bar************************/}
@@ -146,7 +134,7 @@ export default function Task(){
                     })
                 }
             </div>
-            <span role="button" onClick={showModal} className="plus-sign">
+            <span role="button" onClick={()=>showModal("newModal")} className="plus-sign">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="">
                 <path strokeLinecap="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
