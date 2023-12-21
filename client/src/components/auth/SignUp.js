@@ -3,9 +3,15 @@ import postData from "../utilities/postData";
 
 export default function SignUp(){
     const navigate = useNavigate();
+
+
     function signUpHandled(event){
+        //prevent the default action
         event.preventDefault();
+        //get the url from the from > action
         const url = event.target.form.action;
+
+        //make the data from from to something that server side is expected
         const data = {
             name : event.target.form.name.value,
             email: event.target.form.email.value,
@@ -18,7 +24,11 @@ export default function SignUp(){
             // }
             result && navigate('/profile')
         })
-        .catch(err=> console.log(err))
+        //might need to show the user the error later
+        .catch(err=>{ 
+            console.log(err);
+            //window.location.reload();
+        })
     }
     return(
         <div className="sign-up-form-container">

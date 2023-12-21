@@ -12,7 +12,7 @@ export default function Profile(props){
           try {
             // Assuming fetchData is an asynchronous function that returns a promise
             const information = await fetchData(props.url);
-            setData(information);
+            setData(information);//set the data to state but error-handling is missing.
           } catch (error) {
             console.error('Error fetching data:', error);
           }

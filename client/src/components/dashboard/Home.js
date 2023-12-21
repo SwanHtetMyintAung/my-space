@@ -2,6 +2,8 @@ import { useNavigate } from "react-router"
 
 export default function Home({cookies}){
     const navigate = useNavigate();
+    //redirect to Signup Page if there's no cookies,
+    //if there's one redirect to profile
     function checkCookies(){
         if(!cookies) {
             navigate('/signup')

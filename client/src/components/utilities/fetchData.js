@@ -1,7 +1,7 @@
 async function fetchData(url){
     try{
         const response = await fetch(url,{
-            credentials:"include"
+            credentials:"include"//to include the "cookies"
         });
         if(response.ok){
             const result = await response.json();

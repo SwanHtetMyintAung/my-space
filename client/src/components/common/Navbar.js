@@ -2,9 +2,14 @@ import { useEffect , useRef } from "react";
 import { useNavigate } from "react-router";
 import logout from "../utilities/logout";
 
+/*
+this function check whether the user click outside the navbar or not.
+this function will do its work only on mobile/narrow screen where the drop down would appear.
+*/
 export default function Navbar(){
-    const menuRef = useRef();
+    const menuRef = useRef();//to keep track of where the user click.
     const navigate = useNavigate();
+    //useEffect is for to mount the function when the component is loaded and unmounted the function when is unloaded.
     useEffect(() => {
         const handleOutsideClick = (event) => {
             const icon = document.getElementById('menu-toggler').firstChild
@@ -21,7 +26,9 @@ export default function Navbar(){
             document.removeEventListener('click', handleOutsideClick);
         };
     }, []);
-    
+    //to control the visiblity of navbar-menu in narrow screen. 
+    //if the "bol" value is TRUE , the function works like a toggler . 
+    //but if the "bol" value is FALSE ,this will only close the nav-menu. 
     function toggleNav(elementId , bol = true){
         const toggleElement = document.getElementById(elementId);
         if(bol){
@@ -30,6 +37,7 @@ export default function Navbar(){
             toggleElement.classList.add('d-none')
         }
     }
+    //basically call the "logout()" function and navigate to somewhere that "logout" function return  , presumably home page
     async function handledLogout(){
         try{
             const result = await logout();

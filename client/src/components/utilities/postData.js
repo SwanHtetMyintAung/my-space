@@ -1,5 +1,5 @@
 
-
+//basically upload the data , you can give "true" to needResult if you want the result . the default is false and it will return "true" instead of the data
 async function postData(url , data , needResult = false){
     try{
         const response = await fetch(url , {

@@ -1,9 +1,9 @@
 
-
+//look the data and decide whether is already checked or not.
 function checkedClicked(e){
-    let idToChange = e.target.id;
-    let element = document.getElementById(idToChange);
-    let nextSibling = element.nextElementSibling;
+    let idToChange = e.target.id;//get the id
+    let element = document.getElementById(idToChange);//select the id
+    let nextSibling = element.nextElementSibling;//this isn't a good thing but works in my project xD
 
     if(e.target.checked){
         element.classList.add('checked');
@@ -13,8 +13,10 @@ function checkedClicked(e){
         nextSibling.classList.remove('checked');
     }
 }
+//this function allowed the user to edit if the task is checked or not.
 
 async function updateCheck(url , taskId){
+    //make the full url for eg. http://localhost:3000 + / + uwh1fdhfbu838jlbudaj(task id from mongodb)
     const fullUrl = url + '/'+ taskId;
     try{
         const response = await fetch(fullUrl , {

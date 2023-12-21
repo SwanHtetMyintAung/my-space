@@ -5,25 +5,29 @@ const mongoose  = require('mongoose');
 
 
 async function getTasks(req, res) {
-    const userId = req.cookies.user;
+    const userId = req.cookies.user;//extract the user_id from cookies
     try {
+      //check if the id is indeed the mongodb id or not
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ message: "You haven't logged in yet" });
       }
-  
+      //get user with user_id
       const user = await USER.findOne({ _id: userId });
   
+      //return 404 if there is not user
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-  
+      //get the task-ids from user or empty array if there's none
       const taskIds = user.tasks || [];
-      const taskArray = [];
+      const taskArray = [];//to store actual tasks
   
+      //loop through the taskIDs and store each complete task into taskArray
       for (let i = 0; i < taskIds.length; i++) {
         const task = await TASK.findById(taskIds[i]);
         taskArray.push(task);
       }
+      //return the taskArray if everything works
       return res.status(200).json(taskArray);
   
     } catch (err) {
@@ -32,25 +36,29 @@ async function getTasks(req, res) {
     }
   }
 async function getNotes(req, res) {
-    const userId = req.cookies.user;
+    const userId = req.cookies.user;//extract the user_id from cookies
     try {
+      //check if the id is indeed the mongodb id or not
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ message: "You haven't logged in yet" });
       }
-  
+      //get user with user_id
       const user = await USER.findOne({ _id: userId });
   
+      //return 404 if there is not user
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-  
+      //get the note-ids from user or empty array if there's none
       const noteIds = user.notes || [];
-      const noteArray = [];
+      const noteArray = [];//to store actual notes
   
+      //loop through the taskIDs and store each complete task into taskArray
       for (let i = 0; i < noteIds.length; i++) {
         const note = await NOTE.findById(noteIds[i]);
         noteArray.push(note);
       }
+      //return the NoteArray if everything works
       return res.status(200).json(noteArray);
   
     } catch (err) {
@@ -59,18 +67,20 @@ async function getNotes(req, res) {
     }
   }
 async function getProfile(req,res){
-    const userId = req.cookies.user;
+    const userId = req.cookies.user;//extract the user_id from cookies
     try {
+      //check if the id is indeed the mongodb id or not
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ message: "You haven't logged in yet" });
       }
-  
+      //get user with user_id
       const user = await USER.findOne({ _id: userId });
-  
+      //return 404 if there is not user
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.status(200).json(user)
+      //200 code and user if everything is okay
+      res.status(200).json(user);
 
   
     } catch (err) {

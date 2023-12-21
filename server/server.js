@@ -36,7 +36,8 @@ app.options('*', (req, res) => {
 
 
 
-// routes
+//******************** routes****************/ 
+//get
 app.get('/',(req,res)=>{
     res.send('hello there');
 })
@@ -44,16 +45,18 @@ app.get('/task',getControllers.getTasks)
 app.get('/profile',getControllers.getProfile)
 app.get('/note',getControllers.getNotes)
 
+//post
 app.post('/signup',userControllers.signUp);
 app.post('/login' , userControllers.login)
 app.post('/task',uploadControllers.uploadNewTask)
 app.post('/task/:id',idControllers.checkTask)
 app.post('/note',uploadControllers.uploadNewNote)
 
+//delete
 app.delete('/task/:id',idControllers.deleteOneTask)
 app.delete('/logout',userControllers.logout)
 
-
+//connect with mongo and open the server if we succeed
 mongoose.connect(process.env.MONGO_DB_URI)
 .then(result => app.listen(process.env.port || 3000 , ()=> console.log("connected to db...")))
 .catch(err => console.log(err))

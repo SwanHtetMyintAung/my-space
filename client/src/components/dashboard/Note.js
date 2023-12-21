@@ -4,20 +4,25 @@ import fetchData from "../utilities/fetchData";
 import Modal from "../common/Modal";
 import postData from "../utilities/postData";
 
+//still hardcoded url but will fix it later
 const URL = "http://localhost:3000/note"
 
+//pretty self-explanatory show the modal
 function showModal(elementId){
     const modal = document.getElementById(elementId);
     modal.showModal();
 }
+//hide the model
 function closeModal(eventTarget){
   const modal = eventTarget;
   modal.close();
 }
 
 export default function Note(){
+    //to store the "notes" from server side , if there's none , the value will be empty array by default.
     const [notes , setNotes] = useState([]);
 
+    //use fetchData function to get Data from server-side and store it in "notes" state. 
     useEffect(()=>{
         const getData = async() =>{
             try{
@@ -29,12 +34,14 @@ export default function Note(){
         }
 
         getData();
-    } ,[])
+    } ,[])//empty array to make it run only ONCE.
 
+    //will trigger when you add a new Note.
     async function addNewNote(e){
+        //get the input value but this is not really re-usable since we are using previousSibling
         const input = e.target.previousSibling;
         if(input.value === "") return;
-
+        //form the data like the server-side is expected.
         const data = {
             text : input.value
         }
@@ -49,7 +56,7 @@ export default function Note(){
         }catch(error){
             console.log(error.message)
         }
-
+        //empty the input after the upload.
         input.value="";
         closeModal(e.target.parentElement.parentElement);//close modal after adding a note
     }

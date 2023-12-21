@@ -1,10 +1,11 @@
 import IconX from "../utilities/iconX";
 
+// a function to change the height of the "text area" and "button" depending on the value of props
 function setHeight(height , inputElement , buttonElement){
     if(inputElement==null)return; 
     inputElement.style.minHeight = height;
     buttonElement.style.minHeight = height;
-    console.log(inputElement ,buttonElement)
+   // console.log(inputElement ,buttonElement)
 }
 
 export default  function Modal({h , addNewTask , closeModal , textarea=false }){

@@ -4,9 +4,14 @@ import postData from "../utilities/postData";
 export default function Login(){
     const navigate = useNavigate();
 
+    //this function is pretty self-explanatory . it makes the form data in Obj and use postData() to upload.
     function LoginHandled(event){
-        event.preventDefault();
+        event.preventDefault();//to stop the default to work
+
+        //get url from from > action
         const url = event.target.form.action;
+
+        //structure of login form and how server side is expected to received
         const data = {
             email : event.target.form.email.value,
             password : event.target.form.password.value
@@ -19,6 +24,7 @@ export default function Login(){
             }
             //result && navigate('/profile')
         })
+        //might need to show the user the error later!
         .catch(err => console.log(err))
     }
     return(
