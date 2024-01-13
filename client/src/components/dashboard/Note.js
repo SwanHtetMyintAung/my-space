@@ -1,8 +1,9 @@
-import { useState ,useEffect  } from "react";
+import { useState ,useEffect ,useMemo } from "react";
 import NoteNavbar from "../common/NoteNavbar";
 import fetchData from "../utilities/fetchData";
 import Modal from "../common/Modal";
 import postData from "../utilities/postData";
+import {Link} from "react-router-dom"
 
 //still hardcoded url but will fix it later
 const URL = "http://localhost:3000/note"
@@ -21,6 +22,7 @@ function closeModal(eventTarget){
 export default function Note(){
     //to store the "notes" from server side , if there's none , the value will be empty array by default.
     const [notes , setNotes] = useState([]);
+    const [query , setQuery] = useState("");//to store the search input
 
     //use fetchData function to get Data from server-side and store it in "notes" state. 
     useEffect(()=>{
@@ -36,6 +38,17 @@ export default function Note(){
         getData();
     } ,[])//empty array to make it run only ONCE.
 
+    //useMemo is used to prevent wasting resources by making same search.
+    let includedNotes = useMemo(() => {
+        if (notes.length === 0) {
+          return [];
+        }
+      //search the "tasks" state
+      //first make the task.text to lowerCase and find if the search-input is matched . search-input is also lowerCase to prevent case sensitivity.
+        return notes.filter(note => {
+          return  note.text.toLowerCase().includes(query.toLowerCase());
+        });
+      }, [query, notes]);//this will allowed to do the calculation only when the two inputs "query , tasks"(both states) are changed.
     //will trigger when you add a new Note.
     async function addNewNote(e){
         //get the input value but this is not really re-usable since we are using previousSibling
@@ -60,23 +73,34 @@ export default function Note(){
         input.value="";
         closeModal(e.target.parentElement.parentElement);//close modal after adding a note
     }
-
+    //a search function triggered when you type something in search-bar
+    function searchNote(e){
+        const text = e.target.value;
+        //if we check empty condition and clear the query , there would be a bug
+        //if(text === "") return;
+        setQuery(text);
+       
+    }
     return(
         <>
             <NoteNavbar/>
             {/*********** Modal Box ***********/}
             <Modal h="50vh" addNewTask={addNewNote} closeModal={closeModal} textarea={true}/>
             <div className="note-container">
+                <div className="search-container">
+                    <input  onChange={(e)=>searchNote(e)} type='txt'className="search-task" placeholder="Search for Notes"></input>
+                </div>
                 {/* this codes changes the value of "notes" with "!!" to boolean and check if there's any elements in the array */}
-                {   !notes && notes.length === 0 ?
+                {   !notes && includedNotes.length === 0 ?
                     <p className="no-note">No Note Yet!</p>  :
-                    notes.map(note =>{
+                    includedNotes.map(note =>{
                         return(
                             <div key={note._id} className="note-item">
-                                <b></b>
-                                <div className="note-text-container">
-                                    <p>{note.text}</p>
-                                </div>
+                                <Link to={"/note/"+note._id}>
+                                    <div className="note-text-container">
+                                        <p>{note.text}</p>
+                                    </div>
+                                </Link>
                             </div>
                         )
                     })

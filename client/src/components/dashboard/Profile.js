@@ -1,11 +1,11 @@
 import {useEffect , useState} from 'react'
-import {useNavigate} from "react-router-dom"
+//import {useNavigate} from "react-router-dom"
 import fetchData from '../utilities/fetchData'
 const defaultProfile = require('../../img/default-profile.jpg')
 
 export default function Profile(props){
     //const navigate = useNavigate();
-    const [data , setData] = useState({})
+    const [data , setData] = useState({});
 
     useEffect(() => {
         const fetchDataAsync = async () => {

@@ -10,6 +10,7 @@ export default async function logout(){
            return '/login'
         }else{
             console.log(result)
+            return '/'
         }
 
     }catch(error){

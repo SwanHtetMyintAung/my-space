@@ -1,4 +1,4 @@
-import { useEffect , useRef } from "react";
+import { useEffect , useRef ,useState } from "react";
 import { useNavigate } from "react-router";
 import logout from "../utilities/logout";
 
@@ -6,7 +6,8 @@ import logout from "../utilities/logout";
 this function check whether the user click outside the navbar or not.
 this function will do its work only on mobile/narrow screen where the drop down would appear.
 */
-export default function Navbar(){
+export default function Navbar(props){
+    const [login ,setLogin]=useState(props.login);
     const menuRef = useRef();//to keep track of where the user click.
     const navigate = useNavigate();
     //useEffect is for to mount the function when the component is loaded and unmounted the function when is unloaded.
@@ -41,7 +42,7 @@ export default function Navbar(){
     async function handledLogout(){
         try{
             const result = await logout();
-            if(result === "/login"){
+            if(!!result){
                 navigate(result)
             }
         }catch(error){
@@ -58,6 +59,12 @@ export default function Navbar(){
                 <li><a href="/music">Music</a></li>
                 <li><a href="/note">Note</a></li>
                 <li><a href="/profile">Profile</a></li>
+                {
+                    //works only when the user is login
+                    /*  eslint-disable-next-line jsx-a11y/anchor-is-valid */
+                    login && <li><a href="#" onClick={handledLogout}>Logout</a></li>
+                    
+                }
             </ul>
             <span id="menu-toggler" onClick={()=> toggleNav("toggle-menu")} className="nav-list-icon">
 

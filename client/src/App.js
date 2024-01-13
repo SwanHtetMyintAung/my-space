@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route ,Navigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { useState } from "react";
 
 
 import Navbar from './components/common/Navbar';
@@ -10,19 +11,21 @@ import Login from './components/auth/Login';
 import Note from "./components/dashboard/Note";
 import Task from './components/dashboard/Task';
 import Profile from './components/dashboard/Profile';
+import PageNotFound from './components/dashboard/PageNotFound'
 
 import './App.css';
 
 
 function App() {
+  const [login , setLogin]= useState(Boolean(Cookies.get('user')))
   //check there's "user" cookie or not
   //basically authorize function
   function isLogin(elementToRender){
-    const user =  Cookies.get('user');
-    if(user && user !== ""){
+    //const user =  Cookies.get('user');
+    if(login){
       return elementToRender
     }else{
-      return (
+      return(
         <Navigate to="/signup"/>
       )
     }
@@ -30,7 +33,7 @@ function App() {
   return (
     <BrowserRouter>
 
-        <Navbar></Navbar>
+        <Navbar login={login}></Navbar>
         <Routes>
           <Route 
           index 
@@ -55,6 +58,10 @@ function App() {
           <Route 
           path='/profile'
           element={isLogin(<Profile url="http://localhost:3000/profile"/>)}
+          />
+          <Route
+          path="*"
+          element={<PageNotFound/>}
           />
         </Routes>
        

@@ -3,3 +3,5 @@
 -make comment for codes.
 -replace the hard-coded url from front-end with .env ones(google it if you don't know)
 - we need to make the "note"  function like the task , have added the plus button . need to make another page to write note.
+-add eye icon to reveal the password
+-submit form if you click "enter"

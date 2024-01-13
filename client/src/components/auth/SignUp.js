@@ -19,10 +19,10 @@ export default function SignUp(){
         }
         postData(url , data)
         .then(result =>{
-            // if(result){
-            //     navigate('/profile')
-            // }
-            result && navigate('/profile')
+            if(result){
+                navigate('/profile')
+            }
+            // result && navigate('/profile')
         })
         //might need to show the user the error later
         .catch(err=>{ 

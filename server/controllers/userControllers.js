@@ -63,7 +63,6 @@ function logout(req,res){
     try{
         //delete the function by calling the function
         const result = deleteCookies(res);
-        console.log(res.cookies)
         //if succeed send this message
         if(result){
             res.status(200).json({message : "log out successfully!"})

@@ -16,7 +16,7 @@ function checkedClicked(e){
 //this function allowed the user to edit if the task is checked or not.
 
 async function updateCheck(url , taskId){
-    //make the full url for eg. http://localhost:3000 + / + uwh1fdhfbu838jlbudaj(task id from mongodb)
+    //make the full url for eg. http://localhost:3000 + / + (task id from mongodb)
     const fullUrl = url + '/'+ taskId;
     try{
         const response = await fetch(fullUrl , {

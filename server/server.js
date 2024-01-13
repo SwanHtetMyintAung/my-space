@@ -56,6 +56,11 @@ app.post('/note',uploadControllers.uploadNewNote)
 app.delete('/task/:id',idControllers.deleteOneTask)
 app.delete('/logout',userControllers.logout)
 
+//404 page
+app.use((req,res)=>{
+    res.status(404).send("404");
+})
+
 //connect with mongo and open the server if we succeed
 mongoose.connect(process.env.MONGO_DB_URI)
 .then(result => app.listen(process.env.port || 3000 , ()=> console.log("connected to db...")))
